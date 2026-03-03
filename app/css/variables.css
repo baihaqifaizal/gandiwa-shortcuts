@@ -1,0 +1,67 @@
+/* ============================================
+   CSS VARIABLES & THEME TOKENS
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+    /* Dark Mode (Default) */
+    --bg-primary: #0a0514;
+    --bg-secondary: #0f0818;
+    --bg-glass: rgba(15, 8, 24, 0.6);
+    --bg-glass-light: rgba(255, 255, 255, 0.05);
+    --bg-card: rgba(255, 255, 255, 0.08);
+    --bg-card-hover: rgba(255, 255, 255, 0.15);
+    
+    /* Private Note Theme (Based on Image) */
+    --bg-note: #1a1027;
+    --text-note-pink: #ff5a77;
+    --text-note-blue: #64b5f6;
+    
+    --text-primary: #ffffff;
+    --text-secondary: #b8b4c0;
+    --text-muted: #6b6575;
+    
+    --accent-primary: #667eea;
+    --accent-secondary: #764ba2;
+    --accent-glow: rgba(102, 126, 234, 0.4);
+    
+    --border-subtle: rgba(255, 255, 255, 0.1);
+    --border-active: rgba(102, 126, 234, 0.4);
+    
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.4);
+    --shadow-glow: 0 0 40px var(--accent-glow);
+    
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    
+    --font-sans: 'JetBrains Mono', 'Inter', monospace;
+    --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* Light Mode */
+body.light-mode {
+    --bg-primary: #f5f7fa;
+    --bg-secondary: #ffffff;
+    --bg-glass: rgba(255, 255, 255, 0.7);
+    --bg-glass-light: rgba(255, 255, 255, 0.5);
+    --bg-card: rgba(255, 255, 255, 0.6);
+    --bg-card-hover: rgba(255, 255, 255, 0.8);
+    
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-muted: #9a9a9a;
+    
+    --border-subtle: rgba(0, 0, 0, 0.1);
+    --border-active: rgba(102, 126, 234, 0.4);
+
+    --text-note-pink: #d32f2f;
+    --text-note-blue: #1976d2;
+    
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+}

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookmarks</title>
+    <link rel="icon" type="image/webp" href="app/assets/favicon.webp">
+    <!-- CSS Files - Organized by Concern -->
+    <link rel="stylesheet" href="app/css/variables.css">
+    <link rel="stylesheet" href="app/css/layout.css">
+    <link rel="stylesheet" href="app/css/components.css">
+    <link rel="stylesheet" href="app/css/sidebar.css">
+    <link rel="stylesheet" href="app/css/animations.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <!-- Sidebar Toggle Button -->
+            <button id="sidebar-toggle-btn" class="icon-btn sidebar-toggle-btn" title="Toggle Sidebar">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+            
+            <!-- DateTime Display -->
+            <div id="datetime-display" class="datetime-display">
+                <span id="time-display" class="time-display">20:00</span>
+                <span id="date-display" class="date-display">12 Januari 2026</span>
+            </div>
+            
+            <!-- Focus Timer -->
+            <div id="focus-timer" class="focus-timer">
+                <input type="text" id="focus-input" value="25:00" class="focus-input">
+                <button id="focus-toggle-btn" class="icon-btn focus-btn" title="Start Focus">
+                    <!-- Play Icon -->
+                    <svg id="icon-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                         <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                    <!-- Stop Icon (hidden initially) -->
+                    <svg id="icon-stop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;">
+                        <rect x="6" y="4" width="4" height="16"></rect>
+                        <rect x="14" y="4" width="4" height="16"></rect>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Controls Container -->
+            <div id="controls-container" class="controls-container collapsed">
+                <div class="controls">
+                    <!-- 1. Add Category (+) -->
+                    <button id="add-category-btn" class="icon-btn" title="Add Category">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                    </button>
+
+                    <!-- 2. Import JSON (Upload Icon) -->
+                    <div style="position:relative; overflow:hidden;">
+                        <button id="import-btn" class="icon-btn" title="Import JSON">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        </button>
+                        <input type="file" id="input-import" accept=".json" style="position:absolute;top:0;left:0;opacity:0;width:100%;height:100%;cursor:pointer;">
+                    </div>
+
+                    <!-- 3. Export JSON -->
+                    <button id="export-btn" class="icon-btn" title="Export JSON">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                    </button>
+
+                    <!-- 4. Change Wallpaper (Image/Wallpaper Icon) -->
+                    <div style="position:relative; overflow:hidden;">
+                        <button id="btn-wallpaper" class="icon-btn" title="Change Wallpaper">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                        </button>
+                        <input type="file" id="input-wallpaper" accept="image/*" style="position:absolute;top:0;left:0;opacity:0;width:100%;height:100%;cursor:pointer;">
+                    </div>
+
+                    <!-- Backup Wallpaper -->
+                    <button id="backup-wallpaper-btn" class="icon-btn" title="Backup Wallpaper">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                            <path d="M12 3v10M9 10l3 3 3-3"/>
+                            <circle cx="8.5" cy="8.5" r="1.5"/>
+                            <polyline points="21 15 16 10 5 21"/>
+                        </svg>
+                    </button>
+
+                    <!-- 5. Layout Toggle (1 vs 2 columns) -->
+                    <button id="layout-toggle-btn" class="icon-btn" title="Toggle Layout" aria-label="Toggle Layout">
+                        <svg id="icon-layout-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="3" y1="9" x2="21" y2="9"/>
+                            <line x1="3" y1="15" x2="21" y2="15"/>
+                        </svg>
+                        <svg id="icon-layout-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="7" height="18" rx="1"/>
+                            <rect x="14" y="3" width="7" height="18" rx="1"/>
+                        </svg>
+                    </button>
+
+                    <!-- 5. Dark/Light Mode (Paling Kanan) -->
+                    <button id="theme-toggle-btn" class="icon-btn" title="Toggle Theme">
+                        <svg id="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                        <svg id="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Controls Toggle Button -->
+                <button id="controls-toggle-btn" class="controls-toggle-btn" title="Toggle Controls">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <div class="layout-container">
+            <aside id="sidebar" class="collapsed">
+                <div class="sidebar-section">
+                    <ul id="sidebar-nav">
+                        <!-- Sidebar items injected by JS -->
+                    </ul>
+                </div>
+            </aside>
+            <main id="content">
+                <!-- Bookmarks will be rendered here -->
+                <div class="loading">Loading...</div>
+            </main>
+            <aside id="right-sidebar">
+                <div class="notes-header">
+                    <div class="notes-title">catatan.json</div>
+                </div>
+                <div class="notes-body">
+                    <textarea id="private-notes" placeholder="// Tulis catatan rahasia di sini..."></textarea>
+                </div>
+            </aside>
+        </div>
+        
+        <!-- Watermark -->
+        <div class="watermark">
+            <img src="logo.png" alt="Gandiwa Shortcuts" class="watermark-logo">
+            <span>Gandiwa Shortcuts</span>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="modal-overlay" class="modal-overlay">
+        <!-- Add Category Modal -->
+        <div id="modal-category" class="modal" style="display:none;">
+            <h2>New Category</h2>
+            <form id="form-category">
+                <div class="form-group">
+                    <label>Category Name</label>
+                    <input type="text" id="cat-name" required placeholder="e.g., Work Tools">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel">Cancel</button>
+                    <button type="submit" class="btn-primary">Create</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Add Item Modal -->
+        <div id="modal-item" class="modal" style="display:none;">
+            <h2>New Bookmark</h2>
+            <form id="form-item">
+                <input type="hidden" id="item-cat-id">
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" id="item-title" required placeholder="e.g., Gmail">
+                </div>
+                <div class="form-group">
+                    <label>URL</label>
+                    <input type="url" id="item-url" required placeholder="https://...">
+                </div>
+                <div class="form-group">
+                    <label>Icon URL (optional)</label>
+                    <input type="url" id="item-icon" placeholder="https://... or leave empty for auto">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel">Cancel</button>
+                    <button type="submit" class="btn-primary">Add Bookmark</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Edit Item Modal -->
+        <div id="modal-edit-item" class="modal" style="display:none;">
+            <h2>Edit Bookmark</h2>
+            <form id="form-edit-item">
+                <input type="hidden" id="edit-cat-id">
+                <input type="hidden" id="edit-item-id">
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" id="edit-item-title" required placeholder="e.g., Gmail">
+                </div>
+                <div class="form-group">
+                    <label>URL</label>
+                    <input type="url" id="edit-item-url" required placeholder="https://...">
+                </div>
+                <div class="form-group">
+                    <label>Icon URL (optional)</label>
+                    <input type="url" id="edit-item-icon" placeholder="https://... or leave empty for auto">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Context Menu -->
+    <div id="context-menu" class="context-menu hidden">
+        <div class="context-menu-item" id="context-open-new-tab">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+            <span>Open in New Tab</span>
+        </div>
+        <div class="context-menu-item" id="context-copy-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span>Copy Link</span>
+        </div>
+        <div class="context-menu-item" id="context-edit">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+            </svg>
+            <span>Edit Bookmark</span>
+        </div>
+        <div class="context-menu-divider"></div>
+        <div class="context-menu-item" id="context-delete">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                <line x1="10" y1="11" x2="10" y2="17"></line>
+                <line x1="14" y1="11" x2="14" y2="17"></line>
+            </svg>
+            <span>Delete Bookmark</span>
+        </div>
+    </div>
+
+    <script src="app/js/storage.js"></script>
+    <script src="app/js/state.js"></script>
+    <script src="app/js/renderer.js"></script>
+    <script src="app/js/app.js"></script>
+</body>
+</html>

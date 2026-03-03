@@ -1,0 +1,347 @@
+/* ============================================
+   SIDEBAR
+   ============================================ */
+
+/* Sidebar Container */
+aside {
+    width: 280px;
+    background: var(--bg-glass);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 20px 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex-shrink: 0;
+    transform: translateX(0);
+    opacity: 1;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                padding 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                margin 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Sidebar collapsed state */
+aside.collapsed {
+    width: 0;
+    padding: 20px 0; /* Keep vertical padding or shrink? shrinking horizontal padding is key */
+    padding-left: 0;
+    padding-right: 0;
+    border-width: 0;
+    margin-right: 0;
+    opacity: 0;
+    pointer-events: none;
+    overflow: hidden; /* Ensure content doesn't spill */
+    transform: translateX(-20px); /* Slight movement for effect */
+}
+
+/* Custom Scrollbar for Sidebar */
+#sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+#sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    transition: background 0.3s ease;
+}
+
+#sidebar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* Sidebar Navigation */
+#sidebar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-item {
+    display: block;
+    cursor: pointer;
+    padding: 12px 18px;
+    margin: 4px 12px;
+    border-radius: var(--radius-md);
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    user-select: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.sidebar-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 0;
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    border-radius: 0 10px 10px 0;
+    transition: height 0.3s ease;
+}
+
+.sidebar-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+    transform: translateX(4px);
+}
+
+.sidebar-item:hover::before {
+    height: 60%;
+}
+
+.sidebar-item.active {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+    color: var(--accent-primary);
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+}
+
+.sidebar-item.active::before {
+    height: 80%;
+}
+
+.sidebar-item svg {
+    transition: all 0.3s ease;
+}
+
+.sidebar-item:hover svg,
+.sidebar-item.active svg {
+    filter: drop-shadow(0 0 6px currentColor);
+}
+
+.sidebar-header {
+    padding: 20px 20px 12px;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.1em;
+    opacity: 0.8;
+}
+
+/* Tree Structure */
+.tree-node {
+    padding-left: 0;
+    list-style: none;
+}
+
+.tree-node li {
+    position: relative;
+}
+
+.tree-toggle {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tree-toggle:hover {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.tree-toggle svg {
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 0 4px currentColor);
+}
+
+.tree-toggle.collapsed {
+    transform: rotate(-90deg);
+}
+
+.tree-children {
+    padding-left: 16px;
+    margin: 0;
+    border-left: 2px solid rgba(102, 126, 234, 0.15);
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.tree-children.hidden {
+    display: none;
+}
+
+/* ============================================
+   RIGHT SIDEBAR
+   ============================================ */
+
+#right-sidebar {
+    width: 320px;
+    margin-left: 20px;
+    padding-top: 5px;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    flex-shrink: 0;
+    align-self: flex-start; /* Important: don't stretch to full height */
+    height: fit-content;
+    max-height: 80vh;
+    height: fit-content;
+    max-height: 80vh;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                padding 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                margin 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                border 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateX(0);
+    opacity: 1;
+    box-shadow: var(--shadow-lg);
+}
+
+/* Hide right sidebar when left sidebar is visible */
+#sidebar:not(.collapsed) ~ main ~ #right-sidebar {
+    width: 0;
+    margin-left: 0;
+    padding: 0;
+    border-width: 0;
+    opacity: 0;
+    pointer-events: none;
+    overflow: hidden;
+    transform: translateX(20px);
+}
+
+/* ============================================
+   NOTES (RIGHT SIDEBAR content)
+   ============================================ */
+
+.notes-header {
+    padding: 6px 16px;
+    background: rgba(0, 0, 0, 0.05); /* Subtle header background */
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+body.light-mode .notes-header {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+.notes-dots {
+    display: flex;
+    gap: 5px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.dot.red { background: #ff5f56; }
+.dot.yellow { background: #ffbd2e; }
+.dot.green { background: #27c93f; }
+
+.notes-title {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    flex: 1;
+    margin-top: -2px; /* Slight lift up */
+}
+
+.notes-actions {
+    display: flex;
+    gap: 8px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#right-sidebar:hover .notes-actions,
+.notes-actions.visible {
+    opacity: 1;
+}
+
+.note-action-btn {
+    background: transparent;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    color: var(--text-muted);
+}
+
+.note-action-btn svg {
+    width: 14px;
+    height: 14px;
+}
+
+.note-action-btn.check:hover {
+    background: rgba(39, 201, 63, 0.1);
+    color: #27c93f;
+}
+
+.note-action-btn.close:hover {
+    background: rgba(255, 95, 86, 0.1);
+    color: #ff5f56;
+}
+
+.notes-body {
+    flex: 1;
+    padding: 0;
+}
+
+#private-notes {
+    width: 100%;
+    min-height: 100px;
+    padding: 16px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.6;
+    resize: none;
+    overflow: hidden; /* Hide scrollbar as it resizes */
+}
+
+#private-notes::placeholder {
+    color: var(--text-muted);
+    opacity: 0.5;
+}
+
+/* Custom Scrollbar for Notes Area */
+#private-notes::-webkit-scrollbar {
+    width: 4px;
+}
+
+#private-notes::-webkit-scrollbar-thumb {
+    background: var(--border-subtle);
+    border-radius: 4px;
+}

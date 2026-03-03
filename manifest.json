@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Gandiwa Shortcuts",
+  "short_name": "Gandiwa",
+  "version": "1.0",
+  "description": "A minimal, offline-focused bookmark manager dashboard.",
+  "permissions": [
+    "storage",
+    "bookmarks",
+    "favicon"
+  ],
+  "icons": {
+    "16": "app/assets/favicon.webp",
+    "48": "app/assets/favicon.webp",
+    "128": "app/assets/favicon.webp"
+  },
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
+}

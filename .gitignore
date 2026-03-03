@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Backup files
+*.bak
+*.backup
+
+# Local data
+data.json
+bookmarks-data*.json
+
+# Build
+dist/
+build/
