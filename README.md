@@ -14,8 +14,6 @@
 
 </div>
 
----
-
 ## ✨ Features
 
 ### 🔖 Smart Bookmark Manager
