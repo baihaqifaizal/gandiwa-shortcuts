@@ -50,8 +50,8 @@ body.light-mode {
     transition: gap 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Remove gap when sidebar is collapsed */
-.layout-container:has(aside.collapsed) {
+/* Remove gap when left sidebar is collapsed */
+.layout-container:has(#sidebar.collapsed) {
     gap: 0;
 }
 

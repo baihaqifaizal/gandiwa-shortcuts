@@ -19,6 +19,40 @@ header {
     z-index: 100;
 }
 
+@media (max-width: 1050px) {
+    header {
+        padding: 12px 16px;
+        gap: 8px;
+        /* No flex-wrap, keep on single line */
+    }
+    .datetime-display {
+        padding: 6px 10px;
+        gap: 4px;
+        white-space: nowrap;
+    }
+    .date-display {
+        display: none; /* Hide date on small screen to save space */
+    }
+    .time-display, .focus-input {
+        font-size: 14px;
+    }
+    .focus-input {
+        width: 40px;
+    }
+    .focus-timer {
+        padding: 6px 10px;
+        gap: 6px;
+    }
+    .controls button, .icon-btn, .sidebar-toggle-btn, .controls-toggle-btn {
+        width: 32px;
+        height: 32px;
+    }
+    .controls button svg, .icon-btn svg, .sidebar-toggle-btn svg, .controls-toggle-btn svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+
 .brand {
     display: flex;
     align-items: center;
@@ -142,6 +176,8 @@ h1 {
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .time-display {
@@ -176,6 +212,8 @@ h1 {
     box-shadow: none; /* datetime-display has no shadow initially */
     height: auto; /* Allow auto height */
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+    white-space: nowrap;
 }
 
 .focus-timer:hover {
@@ -235,6 +273,7 @@ h1 {
     margin-left: auto;
     position: relative;
     overflow: hidden;
+    flex-shrink: 0;
 }
 
 .controls {

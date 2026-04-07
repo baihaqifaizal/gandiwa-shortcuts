@@ -218,8 +218,9 @@ aside.collapsed {
     box-shadow: var(--shadow-lg);
 }
 
-/* Hide right sidebar when left sidebar is visible */
-#sidebar:not(.collapsed) ~ main ~ #right-sidebar {
+/* Hide right sidebar when left sidebar is visible or when explicitly collapsed */
+#sidebar:not(.collapsed) ~ main ~ #right-sidebar,
+#right-sidebar.collapsed {
     width: 0;
     margin-left: 0;
     padding: 0;

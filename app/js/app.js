@@ -259,6 +259,31 @@ document.addEventListener('DOMContentLoaded', async () => {
             sidebar.classList.toggle('collapsed');
         });
     }
+
+    // --- Notes Toggle Logic ---
+    const rightSidebar = document.getElementById('right-sidebar');
+    const notesToggleBtn = document.getElementById('notes-toggle-btn');
+    
+    if (notesToggleBtn && rightSidebar) {
+        // Load notes state (default: collapsed)
+        const notesState = localStorage.getItem('notesCollapsed');
+        if (notesState === 'false') {
+            rightSidebar.classList.remove('collapsed');
+        } else {
+            rightSidebar.classList.add('collapsed');
+        }
+
+        notesToggleBtn.addEventListener('click', () => {
+            rightSidebar.classList.toggle('collapsed');
+            const isCollapsed = rightSidebar.classList.contains('collapsed');
+            localStorage.setItem('notesCollapsed', isCollapsed ? 'true' : 'false');
+            
+            // Reapply layout to ensure masonry layout adjusts if necessary
+            if (window.updateLayoutUI) {
+                setTimeout(window.updateLayoutUI, 50);
+            }
+        });
+    }
     
     // --- Notes Persistence Logic ---
     const privateNotes = document.getElementById('private-notes');
