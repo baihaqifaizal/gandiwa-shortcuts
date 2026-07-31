@@ -17,7 +17,7 @@ body {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    transition: background 0.3s ease, color 0.3s ease;
+    transition: color 0.15s ease;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     height: 100vh;
@@ -36,6 +36,12 @@ body.light-mode {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.1s ease-out;
+}
+
+#app.ready {
+    opacity: 1;
 }
 
 /* Layout Container */

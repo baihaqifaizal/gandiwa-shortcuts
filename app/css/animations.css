@@ -24,6 +24,22 @@
     }
 }
 
+/* Smooth Simple Fade In for app opening */
+.fade-in {
+    animation: fadeInSmooth 0.1s ease-out forwards;
+}
+
+@keyframes fadeInSmooth {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* Slide In From Left */
 @keyframes slideInLeft {
     from {

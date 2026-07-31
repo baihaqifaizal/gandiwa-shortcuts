@@ -930,6 +930,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.body.style.backgroundPosition = 'center';
     }
 
+    // Reveal entire app smoothly all at once without glitch
+    requestAnimationFrame(() => {
+        document.getElementById('app')?.classList.add('ready');
+    });
+
 
     // --- Modal & Edit Logic ---
 

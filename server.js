@@ -5,14 +5,15 @@ const path = require('path');
 const PORT = 3000;
 const DATA_FILE = path.join(__dirname, 'bookmarks-data.json');
 
-const setCorsHeaders = (res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+const setCorsHeaders = (req, res) => {
+    const origin = req.headers.origin || '*';
+    res.setHeader('Access-Control-Allow-Origin', origin);
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Origin, Accept');
 };
 
 const server = http.createServer((req, res) => {
-    setCorsHeaders(res);
+    setCorsHeaders(req, res);
 
     if (req.method === 'OPTIONS') {
         res.writeHead(204);
