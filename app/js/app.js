@@ -905,13 +905,17 @@ document.addEventListener('DOMContentLoaded', async () => {
                 reader.onload = async (ev) => {
                     try {
                         const jsonData = JSON.parse(ev.target.result);
-                        if (confirm('Import data akan menimpa koleksi saat ini. Lanjutkan?')) {
+                        if (confirm('Import data akan menimpa koleksi bookmark saat ini. Lanjutkan?')) {
                             await State.importData(jsonData);
-                            window.location.reload();
+                            renderSidebar();
+                            renderDashboard();
+                            alert('Berhasil mengimpor data JSON!');
                         }
                     } catch (err) {
                         console.error('Import Error:', err);
-                        alert('Format JSON tidak valid!');
+                        alert('Format file JSON tidak valid!');
+                    } finally {
+                        importInput.value = '';
                     }
                 };
                 reader.readAsText(file);
